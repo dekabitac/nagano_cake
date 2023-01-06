@@ -1,0 +1,112 @@
+<main>
+  <div class= "container">
+    <div class= "row">
+      <div class= "col-md-2"></div>
+      <div class= "col-md-5">
+        <h2 class= "bg-secondary">注文情報入力</h2>
+      </div>
+    </div>
+    <div class= "row">
+      <div class= "col-md-1"></div>
+      <div class= "col-md-6">
+        <table class= "table-borderless">
+        <%= form_with model: @order,url: customers_order_public_orders_path do |order| %>
+          <h3 class= "bg-light">支払方法</h3>
+              <tr>
+                <th>
+                  <div class= "pl-5">
+                    <%= order.radio_button :payment_method, Order.payment_methods.key(0) %>
+                    <%= order.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <div class= "pl-5">
+                    <%= order.radio_button :payment_method, Order.payment_methods.key(1) %>
+                    <%= order.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th></th>
+              </tr>
+        </table>
+        <table class= "table-borderless">
+          <h3 class= "bg-light">お届け先</h3>
+            <tr>
+              <th>
+                <div class= "pl-5">
+                  <%= order.radio_button :address_option, 0 %>
+                  <%= order.label :address, "ご自身の住所" %><br>
+                  〒<%= current_customer.postal_code %>
+                  <%= current_customer.address %><br>
+                  <%= current_customer.last_name %>
+                  <%= current_customer.first_name %><br>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <div class= "pl-5">
+                  <%= order.radio_button :address_option, 1 %>
+                  <%= order.label :address, "登録済住所から選択" %><br>
+                  <%= order.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :address_display) %><br>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <div class= "pl-5">
+                  <%= order.radio_button :address_option, 2 %>
+                  <%= order.label :address, "新しいお届け先" %><br>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <div class= "pl-5">
+                  郵便番号（ハイフンなし）
+                </div>
+              </th>
+              <td>
+                <div class= "pl-5">
+                  <%= order.text_field :postal_code %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <div class= "pl-5">
+                  住所
+                </div>
+              </th>
+              <td>
+                <div class= "pl-5">
+                  <%= order.text_field :address %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <div class= "pl-5">
+                  宛名
+                </div>
+              </th>
+              <td>
+                <div class= "pl-5">
+                  <%= order.text_field :addressee%>
+                </div>
+              </td>
+            </tr>
+        </table>
+        <table>
+          <div class= "text-center">
+            <%= order.submit"確認画面へ進む", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>

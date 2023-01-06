@@ -1,26 +1,51 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<main>
+  <div class= "center-block">
+    <div class= "container px-5 px-md-0">
+      <div class= "row">
+        <div class= "col-md-3"></div>
+        <div class= "col-md-5">
+          <div class= "col-md-5"><h2 class="table-secondary">ログイン</h2></div>
+          <h4 class= "table-secondary">会員の方はこちらからログイン</h4>
+          <table class= "table-borderless">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <tr>
+                <th>
+                  <div class= "pl-5">
+                    <%= f.label :"メールアドレス" %>
+                  </div>
+                </th>
+                <td>
+                  <div class="pl-5">
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <div class= "pl-5">
+                    <%= f.label :"パスワード" %>
+                  </div>
+                </th>
+                <td>
+                  <div class= "pl-5">
+                    <%= f.password_field :password, autocomplete: "current-password" %>
+                  </div>
+                  </th>
+              </tr>
+              <tr>
+                <th></th>
+                <td><%= f.submit "ログイン", class: "btn btn-primary" %></td>
+              </tr>
+            <% end %>
+          </table>
+          <div class= "mt-5">
+            <table class= "table-borderless">
+              <h2 class= "bg-light">会員登録がお済みでない方</h2>
+              <p><%= link_to "こちら", new_customer_registration_path %>から新規登録を行なってください。</p>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "public/shared/links" %>
+</main>

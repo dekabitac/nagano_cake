@@ -1,0 +1,44 @@
+<main>
+  <div class="contaner px-5 px-sm-0">
+    <div class="row">
+      <div class= "col-lg-1"></div>
+      <div class="col-lg-9">
+        <div class= "col-lg-2">
+          <h2 class= "table-secondary">商品一覧</h2>
+        </div>
+        <div class="row">
+          <% @items.each do |item| %>
+          <div class="col-lg-3">
+            <table class= "table-borderless">
+              <tr>
+                <th>
+                  <%= link_to public_item_path(item.id) do %>
+                    <% if item.image.attached? %>
+                      <%= image_tag item.image, size: "200x200" %>
+                    <% else %>
+                      <%= image_tag 'no_image', size: "200x200" %>
+                    <% end %>
+                  <% end %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <%= link_to public_item_path(item.id) do %>
+                    <%= item.product_name %>
+                  <% end %>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  ¥<%= item.price.to_s(:delimited) %>
+                </th>
+              </tr>
+            </table>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class= "page"><%= paginate @items %></div>
+</main>

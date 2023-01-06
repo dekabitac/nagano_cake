@@ -1,0 +1,51 @@
+<main>
+
+  <div class= "container px-5 px-md-0">
+    <div class= "row">
+      <div class= "col-md-5">
+        <h2>商品新規登録</h2>
+        <%= form_with model: @item, url: admin_items_path, method: :post do |item| %>
+        <table class= "table">
+          <thead>
+            <tr>
+              <th>商品画像</th>
+              <td><%= item.file_field :image, accept: "image/*" %></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>商品名</th>
+              <td><%= item.text_field :product_name %></td>
+            </tr>
+            <tr>
+              <th>商品説明</th>
+              <td><%= item.text_area :introduction %></td>
+            </tr>
+            <tr>
+              <th>ジャンル</th>
+              <td><%= item.collection_select :genre_id, @genres, :id, :genre_name, include_blank: '-- 選択してください --' %></td>
+            </tr>
+            <tr>
+              <th>税抜価格</th>
+              <td><%= item.text_field :price %>円</td>
+            </tr>
+            <tr>
+              <th>販売ステータス</th>
+              <td>
+                <%= item.radio_button :is_active, :sale, checked: true %>
+                <%= item.label :is_active, "販売中", {value: :sale, style: "display: inline-block;"} %>
+                <%= item.radio_button :is_active, :selling_discontinued %>
+                <%= item.label :is_active, "販売中止", {value: :selling_discontinued, style: "display: inline-block;"} %>
+             </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class= "text-danger">
+          <%= flash[:notice] %>
+        </div>
+        <div class="col-md-2 col-md-offset-5"><%= item.submit '新規登録', class: "btn btn-success" %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>

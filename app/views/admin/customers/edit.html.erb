@@ -1,0 +1,68 @@
+<main>
+  <h2>
+    <%= @customer.last_name %>
+    <%= @customer.first_name %>
+    さんの会員情報編集
+  </h2>
+  <div class= "container">
+    <div class= "row">
+      <div = "col-lg-12">
+        <table class= "table">
+          <thead>
+            <tr>
+              <th><h4>会員ID</h4></th>
+              <th><%= @customer.id %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= form_with model: @customer, url: admin_customer_path(@customer.id) do |customer| %>
+            <tr>
+              <td><h4>氏名</h4></td>
+              <td>
+                <%= customer.text_field :last_name %>
+                <%= customer.text_field :first_name %>
+              </td>
+            </tr>
+            <tr>
+              <td><h4>フリガナ</h4></td>
+              <td>
+                <%= customer.text_field :last_name_kana %>
+                <%= customer.text_field :first_name_kana %>
+              </td>
+            </tr>
+            <tr>
+              <td><h4>郵便番号</h4></td>
+              <td><%= customer.text_field :postal_code %></td>
+            </tr>
+            <tr>
+              <td><h4>住所</h4></td>
+              <td><%= customer.text_field :address %></td>
+            </tr>
+            <tr>
+              <td><h4>電話番号</h4></th>
+              <td><%= customer.text_field :telephone_number %></td>
+            </tr>
+            <tr>
+              <td><h4>メールアドレス</h4></td>
+              <td><%= customer.text_field :email %></td>
+            </tr>
+            <tr>
+              <td><h4>会員ステータス</h4></td>
+              <td>
+                <%= customer.radio_button :is_deleted, :true, checked: true%>
+                <%= customer.label :is_deleted, "有効" %>
+                <%= customer.radio_button :is_deleted, :false %>
+                <%= customer.label :is_deleted, "退会"%>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><%= customer.submit '変更を保存', class: "btn btn-success" %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
